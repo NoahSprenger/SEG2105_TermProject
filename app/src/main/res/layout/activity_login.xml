@@ -54,7 +54,7 @@
             app:boxStrokeColor="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edtSignUpMobile"
+                android:id="@+id/SignInEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
@@ -76,7 +76,7 @@
             app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edtSignUpPassword"
+                android:id="@+id/SignInPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
@@ -91,7 +91,7 @@
             android:layout_marginTop="32dp">
 
             <ProgressBar
-                android:id="@+id/signUpProgressBar"
+                android:id="@+id/signInProgressBar"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center_horizontal"
