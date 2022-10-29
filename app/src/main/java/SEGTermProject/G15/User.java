@@ -1,6 +1,8 @@
 package SEGTermProject.G15;
 
-public class User {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class User extends AppCompatActivity {
     private String userName;
     private String password;
     private String userID;

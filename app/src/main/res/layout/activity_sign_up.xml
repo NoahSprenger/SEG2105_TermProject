@@ -52,19 +52,21 @@
             android:textSize="16sp" />
 
         <RadioGroup
+            android:id="@+id/radioGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            >
             <RadioButton
-                android:id="@+id/radio_instructor"
+                android:id="@+id/radioInstructor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Instructor"
                 android:layout_marginEnd="14dp"/>
 
             <RadioButton
-                android:id="@+id/radio_student"
+                android:id="@+id/radioStudent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Student"
@@ -82,7 +84,7 @@
             app:boxStrokeColor="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edtSignUpEmail"
+                android:id="@+id/edtSignUpUsername"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
@@ -102,7 +104,7 @@
             app:boxStrokeColor="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edtSignUpMobile"
+                android:id="@+id/edtSignUpEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 

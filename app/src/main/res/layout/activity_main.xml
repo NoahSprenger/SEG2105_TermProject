@@ -7,34 +7,34 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/signUpButton"
+        android:id="@+id/btnSignIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="447dp"
-        android:layout_marginBottom="19dp"
-        android:text="Sign Up"
-        app:layout_constraintBottom_toTopOf="@+id/signInButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginTop="32dp"
+        android:backgroundTint="@color/black"
+        android:text="Login"
+        app:layout_constraintEnd_toEndOf="@+id/btnSignUp"
+        app:layout_constraintStart_toStartOf="@+id/btnSignUp"
+        app:layout_constraintTop_toBottomOf="@+id/btnSignUp" />
 
     <Button
-        android:id="@+id/signInButton"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="169dp"
-        android:text="Sign In"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/signUpButton"
-        app:layout_constraintStart_toStartOf="@+id/signUpButton"
-        app:layout_constraintTop_toBottomOf="@+id/signUpButton" />
+        android:id="@+id/btnSignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="460dp"
+        android:backgroundTint="@color/black"
+        android:text="Sign Up"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="59dp"
-        app:layout_constraintBottom_toTopOf="@+id/signUpButton"
+        android:layout_marginBottom="220dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnSignUp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/logo" />
