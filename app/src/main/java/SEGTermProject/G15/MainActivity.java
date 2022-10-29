@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -14,26 +17,32 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.*;
 
-
-
 public class MainActivity extends AppCompatActivity {
 
+    Button btnSignUp, btnSignIn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        opensignup();
+        btnSignUp = findViewById(R.id.btnSignUp);
+        btnSignIn = findViewById(R.id.btnSignIn);
+        btnSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
-
-//        DBHandler db = new DBHandler();
-//        db.deleteUser("Sam");
-//        db.deleteCourse("ITI1100");
-//        Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_LONG).show();
-
-    }
-    public void opensignup(){
-        Intent intent = new Intent(this, SignupActivity.class);
-        startActivity(intent);
+        btnSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 }

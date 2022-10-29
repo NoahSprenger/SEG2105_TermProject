@@ -26,13 +26,86 @@ public class DBHandler {
 
 
 
-    public void addUser(String Type, String Username, String Password){
+    public void addStudent(User user) throws Exception{
+
+        CollectionReference UsersRef = firestore.collection("Users");
+        Query query = UsersRef.whereEqualTo("Username", user.getUserName());
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    try {
+                        throw new Exception("UsernameOrEmailAlreadyTaken");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        return;
+                    }
+                }
+            }
+        });
+        Query query2 = UsersRef.whereEqualTo("Email", user.getUserID());
+        query2.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    try {
+                        throw new Exception("UsernameOrEmailAlreadyTaken");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        return;
+                    }
+                }
+            }
+        });
 
         Map<String, Object> User = new HashMap<>();
         //User.put("Key", "2");
-        User.put("Type", Type);
-        User.put("Username", Username);
-        User.put("Password", Password);
+        User.put("Type", "Student");
+        User.put("Username", user.getUserName());
+        User.put("Email", user.getUserID());
+        User.put("Password", user.getPassword());
+
+        firestore.collection("Users").add(User);
+    }
+
+    public void addInstroctor(User user){
+
+        CollectionReference UsersRef = firestore.collection("Users");
+        Query query = UsersRef.whereEqualTo("Username", user.getUserName());
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    try {
+                        throw new Exception("UsernameOrEmailAlreadyTaken");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        return;
+                    }
+                }
+            }
+        });
+        Query query2 = UsersRef.whereEqualTo("Email", user.getUserID());
+        query2.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    try {
+                        throw new Exception("UsernameOrEmailAlreadyTaken");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        return;
+                    }
+                }
+            }
+        });
+
+        Map<String, Object> User = new HashMap<>();
+        //User.put("Key", "2");
+        User.put("Type", "Instroctor");
+        User.put("Username", user.getUserName());
+        User.put("Email", user.getUserID());
+        User.put("Password", user.getPassword());
 
         firestore.collection("Users").add(User);
     }
