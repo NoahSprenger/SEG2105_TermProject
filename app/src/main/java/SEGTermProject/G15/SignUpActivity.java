@@ -63,7 +63,7 @@ public class SignUpActivity extends AppCompatActivity {
                 else if(!emailInput.matches(emailPattern)){
                     edtEmail.setError("Please enter a valid email address");
                 }
-                else if(!TextUtils.isEmpty(passwordInput)){
+                else if(TextUtils.isEmpty(passwordInput)){
                     edtPassword.setError("Please enter a password");
                 }
                 else{
@@ -89,7 +89,7 @@ public class SignUpActivity extends AppCompatActivity {
         mAuth.createUserWithEmailAndPassword(emailInput, passwordInput).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
-                Toast.makeText(SignUpActivity.this, "Sign up Succesful", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SignUpActivity.this, "Sign up Successful", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
