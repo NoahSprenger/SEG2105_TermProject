@@ -52,10 +52,12 @@
             android:textSize="16sp" />
 
         <RadioGroup
+            android:id="@+id/radioGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            >
             <RadioButton
                 android:id="@+id/radioInstructor"
                 android:layout_width="wrap_content"

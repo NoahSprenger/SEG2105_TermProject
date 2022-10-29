@@ -1,22 +1,14 @@
 package SEGTermProject.G15;
 
-public class Admin extends User{
-    String userName = "admin";
-    String password = "admin123";
-    String userID = "0";
-    private void addCourse(){
+import androidx.appcompat.app.AppCompatActivity;
 
-    }
+import android.os.Bundle;
 
-    private void deleteCourse(){
+public class Admin extends User {
 
-    }
-
-    private void editCourse(){
-
-    }
-
-    private void deleteUser(){
-
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_admin);
     }
 }
