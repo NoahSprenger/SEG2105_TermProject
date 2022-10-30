@@ -73,25 +73,20 @@ public class SignUpActivity extends AppCompatActivity {
                 }
                 else{
                     radioBtn = (RadioButton)findViewById(radioGroup.getCheckedRadioButtonId());
-                    createUser();
+                    if(createUser()){
+                        Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
                 }
             }
         });
 
-        btnSignIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
 
     }
-    private void createUser(){
+    private Boolean createUser(){
         DBHandler db = new DBHandler();
-        progressBar.setVisibility(View.VISIBLE);
-        btnSignUp.setVisibility(View.INVISIBLE);
+
 
 
         usernameInput = edtUsername.getText().toString();
@@ -101,30 +96,38 @@ public class SignUpActivity extends AppCompatActivity {
 
 
         if (typeInput.equals("Student")){
-            try {
-                Student newUser = new Student();
-                newUser.setUserID(emailInput);
-                newUser.setUserName(usernameInput);
-                newUser.setPassword(passwordInput);
+
+            Student newUser = new Student();
+            newUser.setUserID(emailInput);
+            newUser.setUserName(usernameInput);
+            newUser.setPassword(passwordInput);
+            if(!db.hasDuplicate(newUser)){
+                Toast.makeText(SignUpActivity.this, "Success", Toast.LENGTH_SHORT).show();
                 db.addStudent(newUser);
-            }catch (Exception e){
+            }else{
                 edtUsername.setError("Username and/or email already exists");
                 edtEmail.setError("Username and/or email already exists");
                 Toast.makeText(SignUpActivity.this, "Username and/or email already exists", Toast.LENGTH_SHORT).show();
+                return false;
             }
         }else{
-            try {
-                Instructor newUser = new Instructor();
-                newUser.setUserID(emailInput);
-                newUser.setUserName(usernameInput);
-                newUser.setPassword(passwordInput);
-                db.addInstroctor(newUser);
-            }catch (Exception e){
+
+            Instructor newUser = new Instructor();
+            newUser.setUserID(emailInput);
+            newUser.setUserName(usernameInput);
+            newUser.setPassword(passwordInput);
+            if(!db.hasDuplicate(newUser)){
+                Toast.makeText(SignUpActivity.this, "Success", Toast.LENGTH_SHORT).show();
+                db.addStudent(newUser);
+            }else{
                 edtUsername.setError("Username and/or email already exists");
                 edtEmail.setError("Username and/or email already exists");
                 Toast.makeText(SignUpActivity.this, "Username and/or email already exists", Toast.LENGTH_SHORT).show();
+                return false;
             }
         }
-
+        progressBar.setVisibility(View.VISIBLE);
+        btnSignUp.setVisibility(View.INVISIBLE);
+        return true;
     }
 }

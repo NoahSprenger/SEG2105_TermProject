@@ -24,6 +24,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        DBHandler db = new DBHandler();
+        User Alec = new Student();
+        Alec.setUserName("AlecBaz");
+        Toast.makeText(MainActivity.this, db.hasDuplicate(Alec).toString(), Toast.LENGTH_SHORT).show();
         setContentView(R.layout.activity_main);
         btnSignUp = findViewById(R.id.btnSignUp);
         btnSignIn = findViewById(R.id.btnSignIn);
