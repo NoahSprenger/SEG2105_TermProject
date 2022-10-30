@@ -130,4 +130,6 @@ public class SignUpActivity extends AppCompatActivity {
         btnSignUp.setVisibility(View.INVISIBLE);
         return true;
     }
+
+
 }

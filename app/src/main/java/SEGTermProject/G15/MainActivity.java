@@ -27,7 +27,8 @@ public class MainActivity extends AppCompatActivity {
         DBHandler db = new DBHandler();
         User Alec = new Student();
         Alec.setUserName("AlecBaz");
-        Toast.makeText(MainActivity.this, db.hasDuplicate(Alec).toString(), Toast.LENGTH_SHORT).show();
+        Boolean s = db.hasDuplicate(Alec);
+        Toast.makeText(MainActivity.this, s.toString(), Toast.LENGTH_SHORT).show();
         setContentView(R.layout.activity_main);
         btnSignUp = findViewById(R.id.btnSignUp);
         btnSignIn = findViewById(R.id.btnSignIn);

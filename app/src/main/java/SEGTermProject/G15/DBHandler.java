@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.provider.DocumentsContract;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -21,20 +22,28 @@ import java.util.*;
 
 public class DBHandler {
 
-    FirebaseFirestore firestore = FirebaseFirestore.getInstance();;
-    public DBHandler() {}
+    FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+    public DBHandler() {
+        result = false;
+    }
     private Boolean result;
 
-    public Boolean hasDuplicate(User user){
+    private void isDuplicate(User user){
         result = false;
         CollectionReference UsersRef = firestore.collection("Users");
         Query query = UsersRef.whereEqualTo("Username", user.getUserName());
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                Log.e("T1",result.toString());
+                result = true;
                 if(task.isSuccessful()){
+                    Log.e("T2",result.toString());
+                    result = true;
                     for (QueryDocumentSnapshot document : task.getResult()){
                         result = true;
+                        Log.e("T3",result.toString());
+
                     }
                 }
             }
@@ -46,10 +55,17 @@ public class DBHandler {
                 if(task.isSuccessful()){
                     for (QueryDocumentSnapshot document : task.getResult()){
                         result = true;
+                        Log.e("Email",result.toString());
                     }
                 }
             }
         });
+        Log.e("FINAL",result.toString());
+    }
+
+    public boolean hasDuplicate(User user){
+        isDuplicate(user);
+        Log.e("FFFFFINAL",result.toString());
         return result;
     }
 
