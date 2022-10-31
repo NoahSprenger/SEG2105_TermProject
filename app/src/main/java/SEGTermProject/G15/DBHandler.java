@@ -1,83 +1,122 @@
 package SEGTermProject.G15;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.provider.DocumentsContract;
 import android.util.Log;
+import android.util.Patterns;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.AggregateQuery;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.Source;
+
+import org.checkerframework.checker.units.qual.A;
 
 import java.util.*;
 
 public class DBHandler {
 
     FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-    public DBHandler() {
-        result = false;
+    FirebaseAuth Auth = FirebaseAuth.getInstance();
+    DatabaseReference ref = FirebaseDatabase.getInstance().getReference(); ;
+
+    public Boolean hasDup, wait;
+    public DataSnapshot DS;
+    private String userID;
+
+    DBHandler(){
+
     }
-    private Boolean result;
 
-    private void isDuplicate(User user){
-        result = false;
-        CollectionReference UsersRef = firestore.collection("Users");
-        Query query = UsersRef.whereEqualTo("Username", user.getUserName());
-        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                Log.e("T1",result.toString());
-                result = true;
-                if(task.isSuccessful()){
-                    Log.e("T2",result.toString());
-                    result = true;
-                    for (QueryDocumentSnapshot document : task.getResult()){
-                        result = true;
-                        Log.e("T3",result.toString());
 
+
+    DBHandler(DataSnapshot ds){
+        DS = ds;
+    }
+
+    public DataSnapshot getDS(){
+    return DS;
+    }
+
+
+
+
+
+    public void addStudent(User user) throws Exception {
+        Log.d("TEST", Auth.getCurrentUser().getUid());
+        if(Auth.getCurrentUser() != null){
+            userID = Auth.getCurrentUser().getUid();
+            Auth.createUserWithEmailAndPassword(user.getEmail(), user.getPassword()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if(task.isSuccessful()){
+                        userID = Auth.getCurrentUser().getUid();
+
+                        Map<String, Object> User = new HashMap<>();
+
+                        User.put("Type", user.getType());
+                        User.put("Username", user.getUsername());
+                        User.put("Email", user.getEmail());
+                        User.put("Password", user.getPassword());
+
+
+                        firestore.collection("Users").document(userID).set(User);
+
+                    }else{
+                        try {
+                            throw new Exception("Has dup");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
-            }
-        });
-        Query query2 = UsersRef.whereEqualTo("Email", user.getUserID());
-        query2.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful()){
-                    for (QueryDocumentSnapshot document : task.getResult()){
-                        result = true;
-                        Log.e("Email",result.toString());
-                    }
-                }
-            }
-        });
-        Log.e("FINAL",result.toString());
-    }
+            });
+        }
 
-    public boolean hasDuplicate(User user){
-        isDuplicate(user);
-        Log.e("FFFFFINAL",result.toString());
-        return result;
-    }
 
-    public void addStudent(User user){
-        Map<String, Object> User = new HashMap<>();
 
-        User.put("Type", "Student");
-        User.put("Username", user.getUserName());
-        User.put("Email", user.getUserID());
-        User.put("Password", user.getPassword());
 
-        firestore.collection("Users").add(User);
+
+
+
+
+
+
+
+//        Log.d("AT ADD STUDENT", hasDup.toString());
+//        if (hasDup){
+//            throw new Exception("Has Dup");
+//        }
+//        Map<String, Object> User = new HashMap<>();
+//
+//        User.put("Type", "Student");
+//        User.put("Username", user.getUserName());
+//        User.put("Email", user.getUserID());
+//        User.put("Password", user.getPassword());
+//
+//
+//        firestore.collection("Users").document(user.getUserName()).set(User);
+//        return true;
 
     }
 
@@ -85,8 +124,8 @@ public class DBHandler {
         Map<String, Object> User = new HashMap<>();
         //User.put("Key", "2");
         User.put("Type", "Instroctor");
-        User.put("Username", user.getUserName());
-        User.put("Email", user.getUserID());
+        User.put("Username", user.getUsername());
+        User.put("Email", user.getEmail());
         User.put("Password", user.getPassword());
 
         firestore.collection("Users").add(User);
@@ -135,4 +174,49 @@ public class DBHandler {
             }
         });
     }
+    private Boolean validUser;
+    private String Type;
+    public Object[] Info = new Object[]{validUser,Type};
+
+    public void validUser(String Username, String Password){
+
+        validUser = false;
+//        firestore.collection("Users").whereEqualTo("Username", Username).whereEqualTo("Password", Password).addSnapshotListener(new EventListener<QuerySnapshot>() {
+//            @Override
+//            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+//                if (!value.isEmpty()){
+//                    validUser = true;
+//                    Log.e("VALIDUSER",validUser.toString());
+//
+//                }
+//            }
+//        });
+        CollectionReference UsersRef = firestore.collection("Users");
+        Query query = UsersRef.whereEqualTo("Username", Username).whereEqualTo("Password", Password);
+        DateGetter DG = new DateGetter(query.get());
+        QuerySnapshot qs = DG.QS;
+        for (QueryDocumentSnapshot document : qs) {
+            validUser = true;
+            Type = document.get("Type").toString();
+            Log.e("VALIDUSER", validUser.toString());
+        }
+//        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                if(task.isSuccessful()){
+//                    for (QueryDocumentSnapshot document : task.getResult()){
+//                        validUser = true;
+//                        Type = document.get("Type").toString();
+//                        Log.e("VALIDUSER",validUser.toString());
+//                    }
+//                }
+//            }
+//        });
+
+
+
+
+    }
+
+
 }

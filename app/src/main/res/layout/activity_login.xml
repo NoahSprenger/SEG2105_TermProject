@@ -49,16 +49,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="Email"
+            android:hint="Username"
             android:textColorHint="@color/black"
             app:boxStrokeColor="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/SignInEmail"
+                android:id="@+id/SignInUsername"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
-                android:inputType="textEmailAddress"
+                android:inputType="text"
                 android:singleLine="true"
                 android:textColor="@color/black" />
 

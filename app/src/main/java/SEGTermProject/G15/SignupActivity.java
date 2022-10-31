@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +20,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -29,11 +31,16 @@ public class SignUpActivity extends AppCompatActivity {
     RadioButton radioBtn;
     String usernameInput, emailInput, passwordInput;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+    DBHandler db;
+    DataSnapshot ds;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        db = new DBHandler();
+        ds = db.getDS();
+
         setContentView(R.layout.activity_sign_up);
 
         edtUsername = findViewById(R.id.edtSignUpUsername);
@@ -85,7 +92,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     }
     private Boolean createUser(){
-        DBHandler db = new DBHandler();
+
 
 
 
@@ -95,16 +102,18 @@ public class SignUpActivity extends AppCompatActivity {
         String typeInput = radioBtn.getText().toString();
 
 
+
         if (typeInput.equals("Student")){
 
             Student newUser = new Student();
-            newUser.setUserID(emailInput);
+            newUser.setEmail(emailInput);
             newUser.setUserName(usernameInput);
             newUser.setPassword(passwordInput);
-            if(!db.hasDuplicate(newUser)){
-                Toast.makeText(SignUpActivity.this, "Success", Toast.LENGTH_SHORT).show();
+            newUser.setType("Student");
+            try {
                 db.addStudent(newUser);
-            }else{
+            }catch(Exception e){
+                Log.e("IM HERE NOW",e.getMessage());
                 edtUsername.setError("Username and/or email already exists");
                 edtEmail.setError("Username and/or email already exists");
                 Toast.makeText(SignUpActivity.this, "Username and/or email already exists", Toast.LENGTH_SHORT).show();
@@ -113,13 +122,14 @@ public class SignUpActivity extends AppCompatActivity {
         }else{
 
             Instructor newUser = new Instructor();
-            newUser.setUserID(emailInput);
+            newUser.setEmail(emailInput);
             newUser.setUserName(usernameInput);
             newUser.setPassword(passwordInput);
-            if(!db.hasDuplicate(newUser)){
-                Toast.makeText(SignUpActivity.this, "Success", Toast.LENGTH_SHORT).show();
+            newUser.setType("Instructor");
+            try {
                 db.addStudent(newUser);
-            }else{
+            }catch(Exception e){
+                Log.e("IM HERE NOW",e.getMessage());
                 edtUsername.setError("Username and/or email already exists");
                 edtEmail.setError("Username and/or email already exists");
                 Toast.makeText(SignUpActivity.this, "Username and/or email already exists", Toast.LENGTH_SHORT).show();
