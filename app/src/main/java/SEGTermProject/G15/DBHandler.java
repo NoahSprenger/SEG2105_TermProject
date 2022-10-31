@@ -135,4 +135,50 @@ public class DBHandler {
             }
         });
     }
+
+    public void editCourse(String CourseID, String NewCourseID, String NewCourseInfo) {
+        CollectionReference UsersRef = firestore.collection("Courses");
+//        All fields are filled
+        if (!CourseID.isEmpty() && !NewCourseID.isEmpty() && !NewCourseInfo.isEmpty()) {
+            Query query = UsersRef.whereEqualTo("CourseID", CourseID);
+            query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            String docId = document.getId();
+                            firestore.collection("Courses").document(docId).update("CourseID", NewCourseID);
+                            firestore.collection("Courses").document(docId).update("CourseInfo", NewCourseInfo);
+                        }
+                    }
+                }
+            });
+        } else if (!CourseID.isEmpty() && !NewCourseID.isEmpty()) { // only id is filled
+            Query query = UsersRef.whereEqualTo("CourseID", CourseID);
+            query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            String docId = document.getId();
+                            firestore.collection("Courses").document(docId).update("CourseID", NewCourseID);
+                        }
+                    }
+                }
+            });
+        } else { // only info is filled
+            Query query = UsersRef.whereEqualTo("CourseID", CourseID);
+            query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            String docId = document.getId();
+                            firestore.collection("Courses").document(docId).update("CourseInfo", NewCourseInfo);
+                        }
+                    }
+                }
+            });
+        }
+    }
 }

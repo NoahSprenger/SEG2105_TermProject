@@ -19,19 +19,16 @@ import java.util.*;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button btnSignUp, btnSignIn;
+    Button btnSignUp, btnSignIn, btnAdmin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         DBHandler db = new DBHandler();
-        User Alec = new Student();
-        Alec.setUserName("AlecBaz");
-        Boolean s = db.hasDuplicate(Alec);
-        Toast.makeText(MainActivity.this, s.toString(), Toast.LENGTH_SHORT).show();
         setContentView(R.layout.activity_main);
         btnSignUp = findViewById(R.id.btnSignUp);
         btnSignIn = findViewById(R.id.btnSignIn);
+        btnAdmin = findViewById(R.id.btnAdmin);
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -45,6 +42,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        btnAdmin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, AdminActivity.class);
                 startActivity(intent);
                 finish();
             }
