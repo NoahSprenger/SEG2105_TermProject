@@ -114,7 +114,7 @@ public class DBHandler {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             String docId = document.getId();
                             firestore.collection("Courses").document(docId).update("CourseID", NewCourseID);
-                            firestore.collection("Courses").document(docId).update("CourseInfo", NewCourseInfo);
+                            firestore.collection("Courses").document(docId).update("CourseName", NewCourseInfo);
                         }
                     }
                 }
@@ -140,7 +140,7 @@ public class DBHandler {
                     if (task.isSuccessful()) {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             String docId = document.getId();
-                            firestore.collection("Courses").document(docId).update("CourseInfo", NewCourseInfo);
+                            firestore.collection("Courses").document(docId).update("CourseName", NewCourseInfo);
                         }
                     }
                 }

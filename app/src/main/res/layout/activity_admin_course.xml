@@ -20,90 +20,165 @@
             android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="34sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="32dp"
+            android:layout_gravity="center"/>
 
-        <EditText
+        <TextView
             android:id="@+id/editTextTextPersonName2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Course Code" />
+            android:textSize="20sp"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/black"
+            android:text="Course Code:"
+            />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/courseCode"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="HIS101" />
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp"
+            android:textColorHint="@color/black"
+            app:boxStrokeColor="@color/black"
+            android:hint="HIS101"
+            >
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/courseCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:singleLine="true"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
+
+        <TextView
             android:id="@+id/editTextTextPersonName3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/black"
+            android:text="Course Name:" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Course Name" />
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp"
+            android:textColorHint="@color/black"
+            app:boxStrokeColor="@color/black"
+            android:hint="History">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/courseName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="History" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/courseName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                 />
 
-        <EditText
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
             android:id="@+id/editTextTextPersonName4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="New Course Code" />
+            android:textSize="20sp"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/black"
+            android:text="New Course Code:" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/newCourseCode"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="BIL101" />
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp"
+            android:textColorHint="@color/black"
+            app:boxStrokeColor="@color/black"
+            android:hint="BIL101">
 
-        <EditText
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/newCourseCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:singleLine="true"
+                android:textColor="@color/black" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
             android:id="@+id/text_newCourseName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="New Course Name" />
+            android:textSize="20sp"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/black"
+            android:text="New Course Name:" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/newCourseName"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Biology" />
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp"
+            android:textColorHint="@color/black"
+            app:boxStrokeColor="@color/black"
+            android:hint="Biology">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/newCourseName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                 />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/btnAdminEditCourse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/black"
             android:text="Edit" />
 
         <Button
             android:id="@+id/btnAdminCreateCourse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/black"
             android:text="Create" />
 
         <Button
             android:id="@+id/btnAdminDeleteCourse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/black"
             android:text="Delete" />
 
-        <EditText
-            android:id="@+id/editTextTextPersonName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Course Name"
-            tools:visibility="visible" />
+<!--        <EditText-->
+<!--            android:id="@+id/editTextTextPersonName"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:ems="10"-->
+<!--            android:inputType="textPersonName"-->
+<!--            android:text="Course Name"-->
+<!--            tools:visibility="visible" />-->
 
     </LinearLayout>
 
