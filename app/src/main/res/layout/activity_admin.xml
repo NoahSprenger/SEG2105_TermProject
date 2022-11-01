@@ -63,6 +63,17 @@
             android:layout_marginBottom="35dp"
             android:backgroundTint="@color/black"
             android:text="Courses" />
+
+        <Button
+            android:id="@+id/btnLogOff"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:layout_gravity="right"
+            android:layout_marginTop="145dp"
+            android:layout_marginBottom="35dp"
+            android:backgroundTint="@color/black"
+            android:text="Log Off" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
