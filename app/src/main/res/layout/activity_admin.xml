@@ -6,4 +6,74 @@
     android:layout_height="match_parent"
     tools:context=".Admin">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="22dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="237dp"
+            android:layout_height="52dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="22dp"
+            android:text="Admin Page"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="34sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="163dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginBottom="20dp"
+            android:text="User Utilities:"
+            android:textAlignment="inherit"
+            android:textColor="@color/black"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/btnUserUtilities"
+            android:layout_width="122dp"
+            android:layout_height="74dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="50dp"
+            android:backgroundTint="@color/black"
+            android:text="Users" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="198dp"
+            android:layout_height="45dp"
+            android:layout_marginBottom="20dp"
+            android:text="Course Utilities:"
+            android:textAlignment="inherit"
+            android:textColor="@color/black"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/btnCourseUtilities"
+            android:layout_width="122dp"
+            android:layout_height="74dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="35dp"
+            android:backgroundTint="@color/black"
+            android:text="Courses" />
+
+        <Button
+            android:id="@+id/btnLogOut"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:layout_gravity="right"
+            android:layout_marginTop="145dp"
+            android:layout_marginBottom="35dp"
+            android:backgroundTint="@color/black"
+            android:text="Log Off" />
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

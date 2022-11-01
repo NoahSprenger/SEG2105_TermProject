@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class SignUpActivity extends AppCompatActivity {
 
+    DBHandler db = new DBHandler();
     EditText edtUsername, edtEmail, edtPassword;
     ProgressBar progressBar;
     Button btnSignUp, btnSignIn;
@@ -29,7 +30,6 @@ public class SignUpActivity extends AppCompatActivity {
     RadioButton radioBtn;
     String usernameInput, emailInput, passwordInput;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +44,6 @@ public class SignUpActivity extends AppCompatActivity {
         btnSignIn = findViewById(R.id.btnSignIn);
         radioGroup = findViewById(R.id.radioGroup);
 
-        mAuth = FirebaseAuth.getInstance();
 
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,46 +73,55 @@ public class SignUpActivity extends AppCompatActivity {
                 }
                 else{
                     radioBtn = (RadioButton)findViewById(radioGroup.getCheckedRadioButtonId());
-                    createUser();
+                    if(createUser()){
+                        Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
                 }
             }
         });
 
-        btnSignIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
 
     }
-    private void createUser(){
+    private Boolean createUser(){
+        usernameInput = edtUsername.getText().toString();
+        emailInput = edtEmail.getText().toString();
+        passwordInput = edtPassword.getText().toString();
+        String typeInput = radioBtn.getText().toString();
+        if (typeInput.equals("Student")){
+            Student newUser = new Student();
+            newUser.setEmail(emailInput);
+            newUser.setUserName(usernameInput);
+            newUser.setPassword(passwordInput);
+            newUser.setType("Student");
+            try{
+                db.addUser(newUser);
+                Toast.makeText(SignUpActivity.this, "Success", Toast.LENGTH_SHORT).show();
+            }catch(Exception e){
+                edtUsername.setError("Username and/or email already exists");
+                edtEmail.setError("Username and/or email already exists");
+                Toast.makeText(SignUpActivity.this, "Username and/or email already exists", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        }else{
+            Instructor newUser = new Instructor();
+            newUser.setEmail(emailInput);
+            newUser.setUserName(usernameInput);
+            newUser.setPassword(passwordInput);
+            newUser.setType("Instructor");
+            try{
+                db.addUser(newUser);
+                Toast.makeText(SignUpActivity.this, "Success", Toast.LENGTH_SHORT).show();
+            }catch(Exception e){
+                edtUsername.setError("Username and/or email already exists");
+                edtEmail.setError("Username and/or email already exists");
+                Toast.makeText(SignUpActivity.this, "Username and/or email already exists", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        }
         progressBar.setVisibility(View.VISIBLE);
         btnSignUp.setVisibility(View.INVISIBLE);
-
-        mAuth.createUserWithEmailAndPassword(emailInput, passwordInput).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-            @Override
-            public void onSuccess(AuthResult authResult) {
-                Toast.makeText(SignUpActivity.this, "Sign up Successful", Toast.LENGTH_SHORT).show();
-                Intent intent = null;
-                if(radioBtn.getText() == "Student"){
-                    intent = new Intent(SignUpActivity.this, Student.class);
-                }
-                else if (radioBtn.getText() == "Instructor"){
-                    intent = new Intent(SignUpActivity.this, Instructor.class);
-                }
-                startActivity(intent);
-                finish();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(SignUpActivity.this, "Error " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                progressBar.setVisibility(View.INVISIBLE);
-                btnSignUp.setVisibility(View.VISIBLE);
-            }
-        });
+        return true;
     }
 }

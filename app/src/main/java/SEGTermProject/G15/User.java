@@ -5,9 +5,19 @@ import androidx.appcompat.app.AppCompatActivity;
 public class User extends AppCompatActivity {
     private String userName;
     private String password;
-    private String userID;
+    private String Email;
+    private String Type;
 
-    public String getUserName() {
+    public String getType() {
+        return Type;
+    }
+
+    public void setType(String type) {
+        this.Type = type;
+    }
+
+
+    public String getUsername() {
         return userName;
     }
 
@@ -23,11 +33,11 @@ public class User extends AppCompatActivity {
         this.password = password;
     }
 
-    public String getUserID() {
-        return userID;
+    public String getEmail() {
+        return Email;
     }
 
-    public void setUserID(String userID) {
-        this.userID = userID;
+    public void setEmail(String email) {
+        this.Email = email;
     }
 }
