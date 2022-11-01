@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 public class AdminActivity extends AppCompatActivity {
-    Button btnUserUtilities, btnCourseUtilities;
+    private Button btnUserUtilities, btnCourseUtilities;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
