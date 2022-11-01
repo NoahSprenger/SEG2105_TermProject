@@ -36,31 +36,11 @@ import java.util.*;
 
 public class DBHandler {
 
-    FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-    FirebaseAuth Auth = FirebaseAuth.getInstance();
-    DatabaseReference ref = FirebaseDatabase.getInstance().getReference(); ;
-
-    public Boolean hasDup, wait;
-    public DataSnapshot DS;
+    private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+    private FirebaseAuth Auth = FirebaseAuth.getInstance();
     private String userID;
 
-    DBHandler(){
-
-    }
-
-
-
-    DBHandler(DataSnapshot ds){
-        DS = ds;
-    }
-
-    public DataSnapshot getDS(){
-    return DS;
-    }
-
-
-
-
+    DBHandler(){}
 
     public void addUser(User user) throws Exception {
         Log.d("TEST", Auth.getCurrentUser().getUid());
@@ -71,55 +51,26 @@ public class DBHandler {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
                         userID = Auth.getCurrentUser().getUid();
-
                         Map<String, Object> User = new HashMap<>();
-
                         User.put("Type", user.getType());
                         User.put("Username", user.getUsername());
                         User.put("Email", user.getEmail());
                         User.put("Password", user.getPassword());
-
-
                         firestore.collection("Users").document(userID).set(User);
-
-                    }else{
-                        try {
-                            throw new Exception("Has dup");
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
                     }
                 }
             });
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
-
     public void addCourse(String CourseID, String CourseName){
-
         Map<String, Object> Course = new HashMap<>();
-        //Course.put("Key", "1");
         Course.put("CourseID", CourseID);
         Course.put("CourseName", CourseName);
-
         firestore.collection("Courses").add(Course);
     }
 
     public void deleteUser(String Username){
-
         CollectionReference UsersRef = firestore.collection("Users");
         Query query = UsersRef.whereEqualTo("Username", Username);
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -136,7 +87,6 @@ public class DBHandler {
     }
 
     public void deleteCourse(String CourseID){
-
         CollectionReference UsersRef = firestore.collection("Courses");
         Query query = UsersRef.whereEqualTo("CourseID", CourseID);
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

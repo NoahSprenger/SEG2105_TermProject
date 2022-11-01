@@ -3,10 +3,10 @@ package SEGTermProject.G15;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class User extends AppCompatActivity {
-    public String userName;
-    public String password;
-    public String Email;
-    public String Type;
+    private String userName;
+    private String password;
+    private String Email;
+    private String Type;
 
     public String getType() {
         return Type;

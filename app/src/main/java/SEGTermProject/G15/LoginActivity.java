@@ -30,18 +30,16 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import org.checkerframework.checker.units.qual.A;
 
 public class LoginActivity extends AppCompatActivity {
-    FirebaseAuth Auth = FirebaseAuth.getInstance();
-    FirebaseAuth.AuthStateListener AuthLister  ;
-    DatabaseReference ref = FirebaseDatabase.getInstance().getReference(); ;
-    FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+    private FirebaseAuth Auth = FirebaseAuth.getInstance();
+    private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
-    EditText edtUsername, edtEmail, edtPassword;
-    ProgressBar progressBar;
-    Button btnSignUp, btnSignIn;
-    String usernameInput, emailInput, passwordInput;
-    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+    private EditText edtUsername, edtPassword;
+    private ProgressBar progressBar;
+    private Button btnSignUp, btnSignIn;
+    private String usernameInput,  passwordInput;
+    private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     private FirebaseAuth mAuth;
-    DBHandler db = new DBHandler();
+    private DBHandler db = new DBHandler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +51,6 @@ public class LoginActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.signInProgressBar);
         btnSignUp = findViewById(R.id.btnSignUp);
         btnSignIn = findViewById(R.id.btnSignIn);
-
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -72,6 +69,9 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "Please enter your username", Toast.LENGTH_SHORT).show();
                 } else if (passwordInput.isEmpty()) {
                     edtPassword.setError("Please enter your password");
+                }else if(!usernameInput.matches(emailPattern) && ! usernameInput.equals("admin")){
+                        edtUsername.setError("Please enter a valid email address");
+                        Toast.makeText(LoginActivity.this, "Please enter a valid email address", Toast.LENGTH_SHORT).show();
                 } else {
                     if(usernameInput.equals("admin")){
                         usernameInput = "admin@gmail.com";
@@ -113,7 +113,6 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
-
 
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override

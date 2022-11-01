@@ -8,7 +8,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class AdminUserActivity extends AppCompatActivity {
-    Button btnDeleteStudent, btnDeleteInstructor;
+    private Button btnDeleteStudent, btnDeleteInstructor;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,6 +19,7 @@ public class AdminUserActivity extends AppCompatActivity {
         btnDeleteStudent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent intent = new Intent(AdminUserActivity.this, AdminActivity.class);
                 startActivity(intent);
                 finish();

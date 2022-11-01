@@ -22,7 +22,6 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class SignUpActivity extends AppCompatActivity {
 
-
     DBHandler db = new DBHandler();
     EditText edtUsername, edtEmail, edtPassword;
     ProgressBar progressBar;
@@ -31,7 +30,6 @@ public class SignUpActivity extends AppCompatActivity {
     RadioButton radioBtn;
     String usernameInput, emailInput, passwordInput;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,18 +85,11 @@ public class SignUpActivity extends AppCompatActivity {
 
     }
     private Boolean createUser(){
-
-
-
-
         usernameInput = edtUsername.getText().toString();
         emailInput = edtEmail.getText().toString();
         passwordInput = edtPassword.getText().toString();
         String typeInput = radioBtn.getText().toString();
-
-
         if (typeInput.equals("Student")){
-
             Student newUser = new Student();
             newUser.setEmail(emailInput);
             newUser.setUserName(usernameInput);
@@ -114,7 +105,6 @@ public class SignUpActivity extends AppCompatActivity {
                 return false;
             }
         }else{
-
             Instructor newUser = new Instructor();
             newUser.setEmail(emailInput);
             newUser.setUserName(usernameInput);

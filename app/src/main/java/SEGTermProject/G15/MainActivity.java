@@ -21,11 +21,9 @@ import java.util.*;
 
 public class MainActivity extends AppCompatActivity {
 
-
-    Button btnSignUp, btnSignIn;
-    DBHandler db = new DBHandler();
-
-
+    private Button btnSignUp, btnSignIn;
+    private FirebaseAuth Auth;
+    private FirebaseAuth.AuthStateListener AuthLister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,11 +51,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-    FirebaseAuth Auth;
-    FirebaseAuth.AuthStateListener AuthLister;
+
     private void FireAuthSetup(){
         Auth = FirebaseAuth.getInstance();
-
         AuthLister = new FirebaseAuth.AuthStateListener(){
             @Override
             public void onAuthStateChanged (@NonNull FirebaseAuth firebaseAuth){
@@ -75,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         Auth.addAuthStateListener(AuthLister);
     }
-
     @Override
     public void onStop(){
         super.onStop();
