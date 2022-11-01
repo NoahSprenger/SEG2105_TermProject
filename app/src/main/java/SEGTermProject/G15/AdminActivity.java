@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 public class AdminActivity extends AppCompatActivity {
-    Button btnUserUtilities, btnCourseUtilities;
+    Button btnUserUtilities, btnCourseUtilities, btnLogOut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +17,7 @@ public class AdminActivity extends AppCompatActivity {
         setContentView(R.layout.activity_admin);
         btnUserUtilities = findViewById(R.id.btnUserUtilities);
         btnCourseUtilities = findViewById(R.id.btnCourseUtilities);
+        btnLogOut = findViewById(R.id.btnLogOut);
         btnCourseUtilities.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -30,6 +31,14 @@ public class AdminActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(AdminActivity.this, AdminUserActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        btnLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AdminActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }

@@ -45,6 +45,7 @@ public class SignUpActivity extends AppCompatActivity {
         radioGroup = findViewById(R.id.radioGroup);
 
 
+
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
