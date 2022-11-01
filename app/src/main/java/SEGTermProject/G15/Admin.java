@@ -11,4 +11,6 @@ public class Admin extends User {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
     }
+
+
 }

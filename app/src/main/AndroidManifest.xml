@@ -15,6 +15,20 @@
         android:theme="@style/Theme.TermProject"
         tools:targetApi="31">
         <activity
+            android:name=".InstructorActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".StudentActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".Student"
             android:exported="false">
             <meta-data
@@ -29,7 +43,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Admin"
+            android:name=".AdminCourseActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -43,8 +57,21 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".AdminUserActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".AdminActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".LoginActivity"
-
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

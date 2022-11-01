@@ -21,6 +21,7 @@ import java.util.*;
 
 public class MainActivity extends AppCompatActivity {
 
+
     Button btnSignUp, btnSignIn;
     DBHandler db = new DBHandler();
 
@@ -30,13 +31,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FireAuthSetup();
-
-//        Toast.makeText(MainActivity.this, "OPENED", Toast.LENGTH_SHORT).show();
-//        DBHandler db = new DBHandler();
-//        User Alec = new Student();
-//        Alec.setUserName("Alec");
-//        Boolean r =db.hasDuplicate(Alec);
-//        Toast.makeText(MainActivity.this, r.toString(), Toast.LENGTH_SHORT).show();
         setContentView(R.layout.activity_main);
         btnSignUp = findViewById(R.id.btnSignUp);
         btnSignIn = findViewById(R.id.btnSignIn);
@@ -57,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
+
     }
     FirebaseAuth Auth;
     FirebaseAuth.AuthStateListener AuthLister;

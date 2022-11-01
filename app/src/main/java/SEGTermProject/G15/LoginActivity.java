@@ -67,15 +67,15 @@ public class LoginActivity extends AppCompatActivity {
                 Log.e("USERNAME", usernameInput);
                 Log.e("PASSWORD", passwordInput);
 
-                if(usernameInput.isEmpty()){
+                if (usernameInput.isEmpty()) {
                     edtUsername.setError("Please enter your username");
                     Toast.makeText(LoginActivity.this, "Please enter your username", Toast.LENGTH_SHORT).show();
-                }
-                else if(passwordInput.isEmpty()){
+                } else if (passwordInput.isEmpty()) {
                     edtPassword.setError("Please enter your password");
-                }
-                else {
-                    //loginUser();
+                } else {
+                    if(usernameInput.equals("admin")){
+                        usernameInput = "admin@gmail.com";
+                    }
                     Auth.signInWithEmailAndPassword(usernameInput, passwordInput).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
@@ -87,9 +87,22 @@ public class LoginActivity extends AppCompatActivity {
                                 firestore.collection("Users").document(UserID).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                     @Override
                                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                        Log.e("IM HERE","HI");
+                                        Log.e("IM HERE", "HI");
                                         String Type = task.getResult().getString("Type");
                                         Toast.makeText(LoginActivity.this, Type, Toast.LENGTH_SHORT).show();
+                                        if (Type.equals("Admin")){
+                                            Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                        }else if (Type.equals("Student")) {
+                                            Intent intent = new Intent(LoginActivity.this, StudentActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                        }else if (Type.equals("Instructor")) {
+                                            Intent intent = new Intent(LoginActivity.this, InstructorActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                        }
                                     }
                                 });
 
@@ -102,66 +115,17 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
-//        btnSignUp.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
-//                startActivity(intent);
-//                finish();
-//            }
-//        });
+        btnSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+    }
+}
 
 
 
-//    private void loginUser(){
-//
-//        db.validUser(usernameInput, passwordInput);
-////       finish();
-////        overridePendingTransition(0,0);
-////        startActivity(getIntent());
-////        overridePendingTransition(0,0);
-//
-//        Log.e("DO I GET HERE","YES");
-//        if (db.Info[0].equals(true)){
-////            if(Info[1].equals("Student")){
-////                Intent intent = new Intent(LoginActivity.this, StudentActivity.class);
-////                startActivity(intent);
-////                finish();
-////            }else if (Info[1].equals("Instructor")){
-////                Intent intent = new Intent(LoginActivity.this, InstructorActivity.class);
-////                startActivity(intent);
-////                finish();
-////            }else{
-////
-////                Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
-////                startActivity(intent);
-////                finish();
-////            }
-//            Toast.makeText(LoginActivity.this, "LOGIN SUCCESS", Toast.LENGTH_SHORT).show();
-//            progressBar.setVisibility(View.VISIBLE);
-//            btnSignIn.setVisibility(View.INVISIBLE);
-//        }else {
-//            edtUsername.setError("Wrong Username or Password");
-//            edtEmail.setError("Wrong Username or Password");
-//            Toast.makeText(LoginActivity.this, "Wrong Username or Password", Toast.LENGTH_SHORT).show();
-//        }
-//
-//
-//
-////        mAuth.signInWithEmailAndPassword(emailInput, passwordInput).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-////            @Override
-////            public void onSuccess(AuthResult authResult) {
-////                Toast.makeText(LoginActivity.this, "login successful", Toast.LENGTH_SHORT).show();
-////                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-////                startActivity(intent);
-////                finish();
-////            }
-////        }).addOnFailureListener(new OnFailureListener() {
-////            @Override
-////            public void onFailure(@NonNull Exception e) {
-////                Toast.makeText(LoginActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-////                progressBar.setVisibility(View.INVISIBLE);
-////                btnSignIn.setVisibility(View.VISIBLE);
-////            }
-////        });
-    }}
+

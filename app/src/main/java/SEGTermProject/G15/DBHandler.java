@@ -62,7 +62,7 @@ public class DBHandler {
 
 
 
-    public void addStudent(User user) throws Exception {
+    public void addUser(User user) throws Exception {
         Log.d("TEST", Auth.getCurrentUser().getUid());
         if(Auth.getCurrentUser() != null){
             userID = Auth.getCurrentUser().getUid();
@@ -103,33 +103,10 @@ public class DBHandler {
 
 
 
-//        Log.d("AT ADD STUDENT", hasDup.toString());
-//        if (hasDup){
-//            throw new Exception("Has Dup");
-//        }
-//        Map<String, Object> User = new HashMap<>();
-//
-//        User.put("Type", "Student");
-//        User.put("Username", user.getUserName());
-//        User.put("Email", user.getUserID());
-//        User.put("Password", user.getPassword());
-//
-//
-//        firestore.collection("Users").document(user.getUserName()).set(User);
-//        return true;
+
 
     }
 
-    public void addInstroctor(User user){
-        Map<String, Object> User = new HashMap<>();
-        //User.put("Key", "2");
-        User.put("Type", "Instroctor");
-        User.put("Username", user.getUsername());
-        User.put("Email", user.getEmail());
-        User.put("Password", user.getPassword());
-
-        firestore.collection("Users").add(User);
-    }
 
     public void addCourse(String CourseID, String CourseName){
 
@@ -174,49 +151,51 @@ public class DBHandler {
             }
         });
     }
-    private Boolean validUser;
-    private String Type;
-    public Object[] Info = new Object[]{validUser,Type};
 
-    public void validUser(String Username, String Password){
-
-        validUser = false;
-//        firestore.collection("Users").whereEqualTo("Username", Username).whereEqualTo("Password", Password).addSnapshotListener(new EventListener<QuerySnapshot>() {
-//            @Override
-//            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-//                if (!value.isEmpty()){
-//                    validUser = true;
-//                    Log.e("VALIDUSER",validUser.toString());
-//
-//                }
-//            }
-//        });
-        CollectionReference UsersRef = firestore.collection("Users");
-        Query query = UsersRef.whereEqualTo("Username", Username).whereEqualTo("Password", Password);
-        DateGetter DG = new DateGetter(query.get());
-        QuerySnapshot qs = DG.QS;
-        for (QueryDocumentSnapshot document : qs) {
-            validUser = true;
-            Type = document.get("Type").toString();
-            Log.e("VALIDUSER", validUser.toString());
+    public void editCourse(String CourseID, String NewCourseID, String NewCourseInfo) {
+        CollectionReference UsersRef = firestore.collection("Courses");
+//        All fields are filled
+        if (!CourseID.isEmpty() && !NewCourseID.isEmpty() && !NewCourseInfo.isEmpty()) {
+            Query query = UsersRef.whereEqualTo("CourseID", CourseID);
+            query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            String docId = document.getId();
+                            firestore.collection("Courses").document(docId).update("CourseID", NewCourseID);
+                            firestore.collection("Courses").document(docId).update("CourseInfo", NewCourseInfo);
+                        }
+                    }
+                }
+            });
+        } else if (!CourseID.isEmpty() && !NewCourseID.isEmpty()) { // only id is filled
+            Query query = UsersRef.whereEqualTo("CourseID", CourseID);
+            query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            String docId = document.getId();
+                            firestore.collection("Courses").document(docId).update("CourseID", NewCourseID);
+                        }
+                    }
+                }
+            });
+        } else { // only info is filled
+            Query query = UsersRef.whereEqualTo("CourseID", CourseID);
+            query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            String docId = document.getId();
+                            firestore.collection("Courses").document(docId).update("CourseInfo", NewCourseInfo);
+                        }
+                    }
+                }
+            });
         }
-//        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                if(task.isSuccessful()){
-//                    for (QueryDocumentSnapshot document : task.getResult()){
-//                        validUser = true;
-//                        Type = document.get("Type").toString();
-//                        Log.e("VALIDUSER",validUser.toString());
-//                    }
-//                }
-//            }
-//        });
-
-
-
-
     }
-
 
 }

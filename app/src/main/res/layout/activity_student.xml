@@ -6,4 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".Student">
 
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome Student"
+        tools:layout_editor_absoluteX="142dp"
+        tools:layout_editor_absoluteY="161dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

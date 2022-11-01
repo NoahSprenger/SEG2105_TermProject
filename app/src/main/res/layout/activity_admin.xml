@@ -6,4 +6,52 @@
     android:layout_height="match_parent"
     tools:context=".Admin">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="237dp"
+            android:layout_height="52dp"
+            android:text="Admin Page"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="34sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="163dp"
+            android:layout_height="45dp"
+            android:text="User Utilities"
+            android:textAlignment="inherit"
+            android:textColor="#000000"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/btnUserUtilities"
+            android:layout_width="105dp"
+            android:layout_height="74dp"
+            android:text="Users" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="163dp"
+            android:layout_height="45dp"
+            android:text="Course Utilities"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/btnCourseUtilities"
+            android:layout_width="105dp"
+            android:layout_height="80dp"
+            android:text="Courses" />
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
