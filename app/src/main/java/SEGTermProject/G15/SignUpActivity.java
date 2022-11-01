@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class SignUpActivity extends AppCompatActivity {
 
+    DBHandler db = new DBHandler();
     EditText edtUsername, edtEmail, edtPassword;
     ProgressBar progressBar;
     Button btnSignUp, btnSignIn;
@@ -29,7 +30,6 @@ public class SignUpActivity extends AppCompatActivity {
     RadioButton radioBtn;
     String usernameInput, emailInput, passwordInput;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,41 +85,35 @@ public class SignUpActivity extends AppCompatActivity {
 
     }
     private Boolean createUser(){
-        DBHandler db = new DBHandler();
-
-
-
         usernameInput = edtUsername.getText().toString();
         emailInput = edtEmail.getText().toString();
         passwordInput = edtPassword.getText().toString();
         String typeInput = radioBtn.getText().toString();
-
-
         if (typeInput.equals("Student")){
-
             Student newUser = new Student();
-            newUser.setUserID(emailInput);
+            newUser.setEmail(emailInput);
             newUser.setUserName(usernameInput);
             newUser.setPassword(passwordInput);
-            if(!db.hasDuplicate(newUser)){
+            newUser.setType("Student");
+            try{
+                db.addUser(newUser);
                 Toast.makeText(SignUpActivity.this, "Success", Toast.LENGTH_SHORT).show();
-                db.addStudent(newUser);
-            }else{
+            }catch(Exception e){
                 edtUsername.setError("Username and/or email already exists");
                 edtEmail.setError("Username and/or email already exists");
                 Toast.makeText(SignUpActivity.this, "Username and/or email already exists", Toast.LENGTH_SHORT).show();
                 return false;
             }
         }else{
-
             Instructor newUser = new Instructor();
-            newUser.setUserID(emailInput);
+            newUser.setEmail(emailInput);
             newUser.setUserName(usernameInput);
             newUser.setPassword(passwordInput);
-            if(!db.hasDuplicate(newUser)){
+            newUser.setType("Instructor");
+            try{
+                db.addUser(newUser);
                 Toast.makeText(SignUpActivity.this, "Success", Toast.LENGTH_SHORT).show();
-                db.addStudent(newUser);
-            }else{
+            }catch(Exception e){
                 edtUsername.setError("Username and/or email already exists");
                 edtEmail.setError("Username and/or email already exists");
                 Toast.makeText(SignUpActivity.this, "Username and/or email already exists", Toast.LENGTH_SHORT).show();
