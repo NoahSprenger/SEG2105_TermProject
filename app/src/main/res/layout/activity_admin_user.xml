@@ -23,27 +23,21 @@
             android:layout_gravity="center"
             android:layout_marginBottom="32dp"/>
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="339dp"
             android:layout_height="wrap_content"
+            android:text="Instuctor Username"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <Spinner
+            android:id="@+id/spinnerInstructor"
+            android:layout_width="match_parent"
+            android:layout_height="39dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="10dp"
-            android:hint="Instructor Username"
-            android:textColorHint="@color/black"
-            app:boxStrokeColor="@color/black">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/adminInstructorName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                android:inputType="text"
-                android:singleLine="true"
-                android:textColor="@color/black"
-                />
-
-        </com.google.android.material.textfield.TextInputLayout>
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/btnAdminDeleteInstructor"
@@ -64,17 +58,24 @@
             android:textColorHint="@color/black"
             app:boxStrokeColor="@color/black">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/adminStudentName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
 
-                android:inputType="text"
-                android:singleLine="true"
-                android:textColor="@color/black"
-                />
 
         </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Student Username"
+            android:textSize="20sp"
+            android:textColor="@color/black"/>
+
+        <Spinner
+            android:id="@+id/spinnerStudent"
+            android:layout_width="match_parent"
+            android:layout_height="39dp"
+            android:layout_marginTop="16dp"
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/btnAdminDeleteStudent"
@@ -84,6 +85,7 @@
             android:layout_marginTop="10dp"
             android:layout_gravity="center"
             android:backgroundTint="@color/black"/>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

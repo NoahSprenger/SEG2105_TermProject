@@ -35,34 +35,15 @@
             android:text="Course Code:"
             />
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        <Spinner
+            android:id="@+id/spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="16dp"
-            android:textColorHint="@color/black"
-            app:boxStrokeColor="@color/black"
-            android:hint="HIS101"
-            >
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/courseCode"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:singleLine="true"
-                android:textColor="@color/black" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-        <TextView
-            android:id="@+id/editTextTextPersonName3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
             android:layout_marginTop="16dp"
-            android:textColor="@color/black"
-            android:text="Course Name:" />
+            android:textSize="20sp"
+            />
+
+
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -74,14 +55,6 @@
             app:boxStrokeColor="@color/black"
             android:hint="History">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/courseName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:singleLine="true"
-                android:textColor="@color/black"
-                 />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -101,8 +74,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="16dp"
             android:textColorHint="@color/black"
-            app:boxStrokeColor="@color/black"
-            android:hint="BIL101">
+            app:boxStrokeColor="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/newCourseCode"
@@ -110,7 +82,8 @@
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:singleLine="true"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:hint="Course ID"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -131,7 +104,7 @@
             android:layout_marginEnd="16dp"
             android:textColorHint="@color/black"
             app:boxStrokeColor="@color/black"
-            android:hint="Biology">
+            >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/newCourseName"
@@ -140,6 +113,7 @@
                 android:inputType="text"
                 android:singleLine="true"
                 android:textColor="@color/black"
+                android:hint="Course Name"
                  />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -171,7 +145,7 @@
             android:backgroundTint="@color/black"
             android:text="Delete" />
 
-<!--        <EditText-->
+        <!--        <EditText-->
 <!--            android:id="@+id/editTextTextPersonName"-->
 <!--            android:layout_width="0dp"-->
 <!--            android:layout_height="wrap_content"-->
