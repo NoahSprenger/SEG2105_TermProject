@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class StudentActivity extends AppCompatActivity {
+public class StudentActivity extends User {
     private Button btnLogOut;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
