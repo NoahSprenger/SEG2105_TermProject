@@ -4,34 +4,51 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Instructor">
+    tools:context=".InstructorActivity">
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/btnEdit"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="22dp"
-        android:layout_marginEnd="22dp"
-        android:orientation="vertical">
-        <TextView
-            android:id="@+id/textView7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Welcome Instructor"
-            android:layout_gravity="center"
-            android:textSize="22sp"
-            android:textColor="@color/black"
-            tools:layout_editor_absoluteX="136dp"
-            tools:layout_editor_absoluteY="201dp" />
+        android:layout_marginTop="32dp"
+        android:backgroundTint="@color/black"
+        android:text="Edit Course"
+        app:layout_constraintEnd_toEndOf="@+id/btnAssign"
+        app:layout_constraintStart_toStartOf="@+id/btnAssign"
+        app:layout_constraintTop_toBottomOf="@+id/btnAssign" />
 
-        <Button
-            android:id="@+id/btnLogOut"
-            android:layout_width="120dp"
-            android:layout_height="50dp"
-            android:layout_gravity="right"
-            android:layout_marginTop="650dp"
-            android:backgroundTint="@color/black"
-            android:text="Log Off" />
+    <Button
+        android:id="@+id/btnAssign"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="460dp"
+        android:backgroundTint="@color/black"
+        android:text="Instruct a course"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    </LinearLayout>
+    <Button
+        android:id="@+id/btnLogOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="670dp"
+        android:backgroundTint="@color/black"
+        android:text="Logout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="220dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnSignUp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/logo" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
