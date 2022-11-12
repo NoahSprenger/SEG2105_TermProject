@@ -67,6 +67,13 @@ public class DBHandler {
         Map<String, Object> Course = new HashMap<>();
         Course.put("CourseID", CourseID);
         Course.put("CourseName", CourseName);
+        Course.put("Instructor", "");
+        Course.put("Day1", "");
+        Course.put("Day2", "");
+        Course.put("Day1Hours", "");
+        Course.put("Day2Hours", "");
+        Course.put("StudentCapacity", "");
+        Course.put("Description", "");
         firestore.collection("Courses").add(Course);
     }
 
@@ -166,5 +173,7 @@ public class DBHandler {
             });
         }
     }
+
+    
 
 }

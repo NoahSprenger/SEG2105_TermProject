@@ -89,6 +89,7 @@ public class LoginActivity extends AppCompatActivity {
                                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                         Log.e("IM HERE", "HI");
                                         String Type = task.getResult().getString("Type");
+                                        String Username = task.getResult().getString("Username");
                                         Toast.makeText(LoginActivity.this, Type, Toast.LENGTH_SHORT).show();
                                         if (Type.equals("Admin")){
                                             Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
@@ -100,6 +101,7 @@ public class LoginActivity extends AppCompatActivity {
                                             finish();
                                         }else if (Type.equals("Instructor")) {
                                             Intent intent = new Intent(LoginActivity.this, InstructorActivity.class);
+                                            intent.putExtra("username", Username);
                                             startActivity(intent);
                                             finish();
                                         }
