@@ -19,10 +19,10 @@
 
     <Spinner
         android:id="@+id/spinnerDay1"
-        android:layout_width="118dp"
-        android:layout_height="34dp"
+        android:layout_width="146dp"
+        android:layout_height="30dp"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="32dp"
         app:layout_constraintEnd_toStartOf="@+id/spinnerHours1"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,13 +30,11 @@
 
     <Spinner
         android:id="@+id/spinnerDay2"
-        android:layout_width="153dp"
-        android:layout_height="21dp"
-        android:layout_marginStart="11dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="53dp"
+        android:layout_width="159dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="60dp"
         app:layout_constraintEnd_toStartOf="@+id/spinnerHours2"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -143,10 +141,10 @@
 
     <Spinner
         android:id="@+id/spinnerHours1"
-        android:layout_width="177dp"
-        android:layout_height="20dp"
+        android:layout_width="178dp"
+        android:layout_height="30dp"
         android:layout_marginStart="42dp"
-        android:layout_marginTop="59dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="23dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/spinnerDay1"
@@ -156,9 +154,9 @@
         android:id="@+id/spinnerHours2"
         android:layout_width="179dp"
         android:layout_height="25dp"
-        android:layout_marginStart="53dp"
-        android:layout_marginTop="71dp"
-        app:layout_constraintStart_toEndOf="@+id/spinnerDay2"
+        android:layout_marginTop="76dp"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinnerHours1" />
 
     <Button
@@ -173,5 +171,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout2"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.926" />
 </androidx.constraintlayout.widget.ConstraintLayout>
