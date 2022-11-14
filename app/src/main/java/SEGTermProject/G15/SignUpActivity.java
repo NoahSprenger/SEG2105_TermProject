@@ -82,8 +82,20 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
+        btnSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
     }
+
+
+
+
     private Boolean createUser(){
         usernameInput = edtUsername.getText().toString();
         emailInput = edtEmail.getText().toString();

@@ -37,8 +37,37 @@
         android:id="@+id/btnTeach"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="61dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="60dp"
         android:text="Teach this course"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/CourseList"
-        tools:layout_editor_absoluteX="111dp" />
+        android:backgroundTint="@color/black"/>
+
+    <Button
+        android:id="@+id/btnSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:backgroundTint="@color/black"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:text="Search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.584"
+        app:layout_constraintStart_toEndOf="@+id/btnTeach"
+        app:layout_constraintTop_toBottomOf="@+id/CourseList" />
+
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:backgroundTint="@color/black"
+        android:text="back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnTeach" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
