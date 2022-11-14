@@ -26,7 +26,7 @@ import java.util.Stack;
 
 public class InstuctorEditCourse extends AppCompatActivity {
 
-    private Button btnEdit, btnLeave;
+    private Button btnEdit, btnLeave, btnBack;
     private Spinner courseSpin, day1Spin, day2Spin, hours1Spin, hours2Spin;
     private EditText studentCapasity, description;
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
@@ -42,6 +42,7 @@ public class InstuctorEditCourse extends AppCompatActivity {
         String username = getIntent().getStringExtra("username");
         btnEdit = findViewById(R.id.btnEdit);
         btnLeave = findViewById(R.id.btnLeave);
+        btnBack = findViewById(R.id.btnBack);
         courseSpin = findViewById(R.id.spinnerCourse);
         day1Spin = findViewById(R.id.spinnerDay1);
         day2Spin = findViewById(R.id.spinnerDay2);
@@ -216,6 +217,15 @@ public class InstuctorEditCourse extends AppCompatActivity {
                         }
                     });
                 }
+            }
+        });
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(InstuctorEditCourse.this, InstructorActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 

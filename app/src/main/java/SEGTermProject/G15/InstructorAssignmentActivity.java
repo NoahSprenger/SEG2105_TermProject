@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -20,29 +21,36 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Stack;
 
 public class InstructorAssignmentActivity extends AppCompatActivity {
 
     ListView courseList;
-    Stack Courses = new Stack();
-    ArrayAdapter adapter;
+    SimpleAdapter adapter;
     FirebaseFirestore firestore = FirebaseFirestore.getInstance();
     String line, courseID, courseName, instructor;
     EditText CourseSelect;
-    Button btnTeach;
-
-
+    Button btnTeach, btnSearch, btnBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instructor_assignment);
         String username = getIntent().getStringExtra("username");
-        courseList = findViewById(R.id.CourseList);
+        courseList = (ListView) findViewById(R.id.CourseList);
         btnTeach = findViewById(R.id.btnTeach);
+        btnSearch = findViewById(R.id.btnSearch);
+        btnBack = findViewById(R.id.btnBack);
         CourseSelect = findViewById((R.id.CourseSelect));
+
+        List<HashMap<String, String>> results = new ArrayList<>();
+        adapter = new SimpleAdapter(InstructorAssignmentActivity.this, results, R.layout.custom_row_view_instructor,
+                new String[]{"line1", "line2", "line3"},
+                new int[]{R.id.courseID, R.id.courseName, R.id.instructName});
+
 
         CollectionReference CourseRef = firestore.collection("Courses");
         CourseRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -53,26 +61,24 @@ public class InstructorAssignmentActivity extends AppCompatActivity {
                         courseID = document.getString("CourseID");
                         courseName = document.getString("CourseName");
                         instructor = document.getString("Instructor");
+                        HashMap<String, String> courseValues = new HashMap<>();
+                        courseValues.put("line1", courseID);
+                        courseValues.put("line2", courseName);
 
                         if (instructor.equals("")) {
-                            line = courseID + ", " + courseName + ", Open";
-
+                            courseValues.put("line3", "No instructor set");
                         } else {
-                            line = courseID + ", " + courseName + ", Closed";
-
+                            courseValues.put("line3", instructor);
                         }
                         if (line == null){
                             Log.e("Null","Error");
                         }
-                        Courses.add(line);
+                        results.add(courseValues);
                     }
 
                 }
-                adapter = new ArrayAdapter(InstructorAssignmentActivity.this, android.R.layout.simple_list_item_1, Courses);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 courseList.setAdapter(adapter);
-
-
             }
         });
 
@@ -89,16 +95,9 @@ public class InstructorAssignmentActivity extends AppCompatActivity {
                                 courseName = document.getString("CourseName");
                                 instructor = document.getString("Instructor");
 
-                                if (instructor.equals("") && courseID.equals(Course)) {
+                                if ((instructor.equals("") && courseID.equals(Course)) || (instructor.equals("") && courseName.equals(Course)) ) {
                                     firestore.collection("Courses").document(document.getId()).update("Instructor", username);
-                                    Toast.makeText(InstructorAssignmentActivity.this, courseID +", "+ courseName+"Assigned", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(InstructorAssignmentActivity.this, InstructorActivity.class);
-                                    intent.putExtra("username",username);
-                                    startActivity(intent);
-                                    finish();
-                                }else if(instructor.equals("") && courseName.equals(Course)) {
-                                    firestore.collection("Courses").document(document.getId()).update("Instructor", username);
-                                    Toast.makeText(InstructorAssignmentActivity.this, courseID + ", " + courseName + "Assigned", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(InstructorAssignmentActivity.this, courseID +", "+ courseName+ "Assigned", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(InstructorAssignmentActivity.this, InstructorActivity.class);
                                     intent.putExtra("username",username);
                                     startActivity(intent);
@@ -118,6 +117,59 @@ public class InstructorAssignmentActivity extends AppCompatActivity {
             }
         });
 
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String course = CourseSelect.getText().toString();
+                List<HashMap<String, String>> searchRslt = new ArrayList<>();
+                adapter = new SimpleAdapter(InstructorAssignmentActivity.this, searchRslt, R.layout.custom_row_view_instructor,
+                        new String[]{"line1", "line2", "line3"},
+                        new int[]{R.id.courseID, R.id.courseName, R.id.instructName});
+
+                CourseRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                courseID = document.getString("CourseID");
+                                courseName = document.getString("CourseName");
+                                instructor = document.getString("Instructor");
+                                HashMap<String, String> courseValues = new HashMap<>();
+
+                                courseValues.put("line1", courseID);
+                                courseValues.put("line2", courseName);
+
+                                if (instructor.equals("")) {
+                                    courseValues.put("line3", "No instructor set");
+                                } else {
+                                    courseValues.put("line3", instructor);
+                                }
+
+                                if(courseID.equals(course) || courseName.equals(course)){
+                                    searchRslt.add(courseValues);
+                                }
+                                else{
+                                    results.remove(courseValues);
+                                }
+                            }
+                        }
+                        adapter.notifyDataSetChanged();
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        courseList.setAdapter(adapter);
+                    }
+                });
+
+            }
+        });
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(InstructorAssignmentActivity.this, InstructorActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
     }
 }
