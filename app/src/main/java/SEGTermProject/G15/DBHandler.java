@@ -93,6 +93,24 @@ public class DBHandler {
         });
     }
 
+    public Stack<String> getUsers(){
+        Stack<String> users = new Stack<String>();
+        CollectionReference UsersRef = firestore.collection("Users");
+        UsersRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for (QueryDocumentSnapshot document : task.getResult()){
+                        String user = document.getString("Email");
+                        users.add(user);
+
+                    }
+                }
+            }
+        });
+        return  users;
+    }
+
     public Stack<String> getCourses(){
         Stack<String> Courses = new Stack<String>();
         CollectionReference CourseRef = firestore.collection("Courses");
