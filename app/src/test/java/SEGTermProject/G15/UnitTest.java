@@ -37,7 +37,7 @@ public class UnitTest {
         test_instructor.setUserName("testInstructor");
         test_instructor.setPassword("123Instructor");
         test_instructor.setType("Instructor");
-        db.addUser(test_student);
+        db.addUser(test_instructor);
         Stack<String> users = db.getUsers();
         assertTrue(users.search("testInstructor@gmail.com") != -1);
     }
