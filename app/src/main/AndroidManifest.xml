@@ -15,6 +15,20 @@
         android:theme="@style/Theme.TermProject"
         tools:targetApi="31">
         <activity
+            android:name=".StudentCoursesActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".StudentEnrolActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".InstuctorEditCourse"
             android:exported="false">
             <meta-data
