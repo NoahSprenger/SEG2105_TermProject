@@ -1,9 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".StudentCoursesActivity">
+    android:background="@color/white"
+    android:scrollbars="none"
+    tools:context=".StudentEnrolActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="2dp"
+        android:orientation="vertical">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout"
+            android:layout_width="409dp"
+            android:layout_height="wrap_content"
+            android:hint="CourseID or course name"
+            app:layout_constraintBottom_toTopOf="@+id/textInputLayout2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout2"
+            android:layout_width="409dp"
+            android:layout_height="wrap_content"
+            android:hint="Course day"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="130dp">
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ListView
+            android:id="@+id/CourseList"
+            android:layout_width="410dp"
+            android:layout_height="362dp"
+            android:layout_marginTop="28dp"
+            app:layout_constraintBottom_toTopOf="@+id/btnEnrol"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="2dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnUnenrol"
+                android:layout_width="143dp"
+                android:layout_height="51dp"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/black"
+                android:text="Unenrol"
+                tools:layout_editor_absoluteY="606dp" />
+
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/black"
+            android:layout_gravity="center"
+            android:text="back" />
+
+    </LinearLayout>
+</ScrollView>
