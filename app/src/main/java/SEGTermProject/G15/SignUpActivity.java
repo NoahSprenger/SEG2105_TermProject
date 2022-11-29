@@ -93,9 +93,6 @@ public class SignUpActivity extends AppCompatActivity {
 
     }
 
-
-
-
     private Boolean createUser(){
         usernameInput = edtUsername.getText().toString();
         emailInput = edtEmail.getText().toString();

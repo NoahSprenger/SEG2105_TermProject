@@ -127,7 +127,7 @@ public class StudentEnrolActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         if (Item == null) {
-                            CourseSelect.setError("Select a course course");
+                            CourseSelect.setError("Select a course");
                             Toast.makeText(StudentEnrolActivity.this, "No course selected", Toast.LENGTH_SHORT).show();
                         } else {
                             String Course = Item;
@@ -198,16 +198,67 @@ public class StudentEnrolActivity extends AppCompatActivity {
                         }
                     }
                 });
-
-                btnBack.setOnClickListener(new View.OnClickListener() {
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String Course = CourseSelect.getText().toString();
+                String day = CourseDay.getText().toString();
+                List<HashMap<String, String>> searchRslt = new ArrayList<>();
+                adapter = new SimpleAdapter(StudentEnrolActivity.this, searchRslt, R.layout.custom_row_view_student,
+                        new String[]{"line1", "line2", "line3", "line4", "line5", "line6", "line7"},
+                        new int[]{R.id.courseID, R.id.courseName, R.id.instructName,
+                                R.id.courseDescription, R.id.courseDate1, R.id.courseDate2, R.id.courseCapacity});
+                CourseRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(StudentEnrolActivity.this, StudentActivity.class);
-                        intent.putExtra("username", username);
-                        startActivity(intent);
-                        finish();
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            for (QueryDocumentSnapshot document : task.getResult()){
+                                courseID = document.getString("CourseID");
+                                courseName = document.getString("CourseName");
+                                instructor = document.getString("Instructor");
+                                courseDate1 = document.getString("Day1") + ", " + document.getString("Day1Hours");
+                                courseDate2 = document.getString("Day2") + ", " + document.getString("Day2Hours");
+                                HashMap<String, String> courseValues = new HashMap<>();
 
+                                courseValues.put("line1", courseID);
+                                courseValues.put("line2", courseName);
+                                courseValues.put("line3", instructor);
+                                courseValues.put("line4", courseDescription);
+                                courseValues.put("line5", courseCapacity);
+                                courseValues.put("line6", courseDate1);
+                                courseValues.put("line7", courseDate2);
+
+                                if(!Course.isEmpty()){
+                                    Log.e("error","REACHED HERE");
+                                    if(Course.equals(courseName) || Course.equals(courseID)){
+                                        searchRslt.add(courseValues);
+                                    }
+
+                                } else if(!day.isEmpty()){
+                                    if((day.equals(document.getString("Day1"))) || (day.equals(document.getString("Day2")))){
+                                        searchRslt.add(courseValues);
+                                    }
+                                } else{
+                                    results.remove(courseValues);
+                                }
+                            }
+                        }
+                        adapter.notifyDataSetChanged();
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        courseList.setAdapter(adapter);
                     }
                 });
+            }
+        });
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(StudentEnrolActivity.this, StudentActivity.class);
+                intent.putExtra("username", username);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 }

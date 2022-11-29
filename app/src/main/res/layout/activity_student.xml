@@ -9,13 +9,13 @@
 
     <Button
         android:id="@+id/btnCourses"
-        android:layout_width="333dp"
-        android:layout_height="42dp"
+        android:layout_width="345dp"
+        android:layout_height="41dp"
         android:layout_marginTop="32dp"
         android:backgroundTint="@color/black"
         android:paddingLeft="90dp"
         android:paddingRight="90dp"
-        android:text="Enrolled Course"
+        android:text="Enrolled Courses"
         app:layout_constraintEnd_toEndOf="@+id/btnSearch"
         app:layout_constraintStart_toStartOf="@+id/btnSearch"
         app:layout_constraintTop_toBottomOf="@+id/btnSearch" />

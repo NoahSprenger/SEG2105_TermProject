@@ -7,16 +7,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -30,7 +37,7 @@ public class StudentCoursesActivity extends AppCompatActivity {
 
     ListView courseList;
     SimpleAdapter adapter;
-    Button btnUnenrol, btnBack;
+    Button btnUnenrol, btnBack, btnSearch;
     FirebaseFirestore firestore = FirebaseFirestore.getInstance();
     String Item;
     DBHandler db = new DBHandler();
@@ -42,6 +49,7 @@ public class StudentCoursesActivity extends AppCompatActivity {
         String username = getIntent().getStringExtra("username");
 
         courseList = (ListView) findViewById(R.id.CourseList);
+
         btnUnenrol = findViewById(R.id.btnUnenrol);
         btnBack = findViewById(R.id.btnBack);
 
@@ -139,7 +147,6 @@ public class StudentCoursesActivity extends AppCompatActivity {
 //                        }
 //                    });
                 }
-
             }
         });
 
@@ -150,8 +157,8 @@ public class StudentCoursesActivity extends AppCompatActivity {
                 intent.putExtra("username", username);
                 startActivity(intent);
                 finish();
-
             }
         });
+
     }
 }
