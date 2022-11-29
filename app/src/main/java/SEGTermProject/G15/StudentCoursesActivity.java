@@ -33,6 +33,7 @@ public class StudentCoursesActivity extends AppCompatActivity {
     Button btnUnenrol, btnBack;
     FirebaseFirestore firestore = FirebaseFirestore.getInstance();
     String Item;
+    DBHandler db = new DBHandler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,43 +94,50 @@ public class StudentCoursesActivity extends AppCompatActivity {
                 if (Item == null){
                     btnUnenrol.setError("Select a course");
                 }else{
-                    CollectionReference UserRef = firestore.collection("Users");
-                    UserRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if (task.isSuccessful()){
-                                for (QueryDocumentSnapshot document : task.getResult()){
-                                    if (document.getString("Username").equals(username)) {
-                                        Map<String, ArrayList> Courses = (Map<String, ArrayList>) document.get("Courses");
-                                        Courses.remove(Item);
-                                        firestore.collection("Users").document(document.getId()).update("Courses", Courses);
-                                        Toast.makeText(StudentCoursesActivity.this, Item+ "Unenrolled", Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(StudentCoursesActivity.this, StudentActivity.class);
-                                        intent.putExtra("username", username);
-                                        startActivity(intent);
-                                        finish();
-                                    }
+                    db.UnenrollStudent(username,Item);
+                    Toast.makeText(StudentCoursesActivity.this, Item+ "Unenrolled", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(StudentCoursesActivity.this, StudentActivity.class);
+                    intent.putExtra("username", username);
+                    startActivity(intent);
+                    finish();
 
-                                }
-                            }
-                        }
-                    });
-                    CollectionReference CourseRef = firestore.collection("Courses");
-                    CourseRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if(task.isSuccessful()){
-                                for (QueryDocumentSnapshot document : task.getResult()){
-                                    if (document.getString("CourseID").equals(Item)){
-                                        ArrayList Students = (ArrayList) document.get("Students");
-                                        Students.remove(username);
-                                        firestore.collection("Courses").document(document.getId()).update("Students", Students);
-
-                                    }
-                                }
-                            }
-                        }
-                    });
+//                    CollectionReference UserRef = firestore.collection("Users");
+//                    UserRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                        @Override
+//                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                            if (task.isSuccessful()){
+//                                for (QueryDocumentSnapshot document : task.getResult()){
+//                                    if (document.getString("Username").equals(username)) {
+//                                        Map<String, ArrayList> Courses = (Map<String, ArrayList>) document.get("Courses");
+//                                        Courses.remove(Item);
+//                                        firestore.collection("Users").document(document.getId()).update("Courses", Courses);
+//                                        Toast.makeText(StudentCoursesActivity.this, Item+ "Unenrolled", Toast.LENGTH_SHORT).show();
+//                                        Intent intent = new Intent(StudentCoursesActivity.this, StudentActivity.class);
+//                                        intent.putExtra("username", username);
+//                                        startActivity(intent);
+//                                        finish();
+//                                    }
+//
+//                                }
+//                            }
+//                        }
+//                    });
+//                    CollectionReference CourseRef = firestore.collection("Courses");
+//                    CourseRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                        @Override
+//                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                            if(task.isSuccessful()){
+//                                for (QueryDocumentSnapshot document : task.getResult()){
+//                                    if (document.getString("CourseID").equals(Item)){
+//                                        ArrayList Students = (ArrayList) document.get("Students");
+//                                        Students.remove(username);
+//                                        firestore.collection("Courses").document(document.getId()).update("Students", Students);
+//
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    });
                 }
 
             }

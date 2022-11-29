@@ -3,6 +3,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.provider.DocumentsContract;
 import android.util.Log;
@@ -23,6 +24,7 @@ import com.google.firebase.firestore.AggregateQuery;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
@@ -67,28 +69,112 @@ public class DBHandler {
         }
     }
 
-    public void EnrollStudent (QueryDocumentSnapshot Coursedocument, String username){
+    public void UnenrollStudent (String username, String Item){
         CollectionReference UserRef = firestore.collection("Users");
         UserRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()){
-                    for (QueryDocumentSnapshot Userdocument : task.getResult()){
-                        if (Userdocument.getString("Username").equals(username)) {
-                            Map Schedule = (Map) Userdocument.get("Courses");
-                            String CourseID = Coursedocument.getString("CourseID");
-                            String[] Days = new String[]{Coursedocument.getString("Day1"),Coursedocument.getString("Day1hours"),Coursedocument.getString("Day2"),Coursedocument.getString("Day2Hours")};
-                            Schedule.put(CourseID,Days);
-                            Map<String, String[]> Courses = new HashMap<>();
-                            Courses.put("Test", new String[]{"Day1", "Time1"});
-
-                            firestore.collection("Users").document(Userdocument.getId()).update("Courses",Courses);
+                    for (QueryDocumentSnapshot document : task.getResult()){
+                        if (document.getString("Username").equals(username)) {
+                            Map<String, ArrayList> Courses = (Map<String, ArrayList>) document.get("Courses");
+                            Courses.remove(Item);
+                            firestore.collection("Users").document(document.getId()).update("Courses", Courses);
+//                            Toast.makeText(StudentCoursesActivity.this, Item+ "Unenrolled", Toast.LENGTH_SHORT).show();
+//                            Intent intent = new Intent(StudentCoursesActivity.this, StudentActivity.class);
+//                            intent.putExtra("username", username);
+//                            startActivity(intent);
+//                            finish();
                         }
 
+                    }
+                }
+            }
+        });
+        CollectionReference CourseRef = firestore.collection("Courses");
+        CourseRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for (QueryDocumentSnapshot document : task.getResult()){
+                        if (document.getString("CourseID").equals(Item)){
+                            ArrayList Students = (ArrayList) document.get("Students");
+                            Students.remove(username);
+                            firestore.collection("Courses").document(document.getId()).update("Students", Students);
 
+                        }
+                    }
+                }
+            }
+        });
+    }
 
+    public void EnrollStudent ( String username, String Item, ArrayList<String[]> ScheduleList){
 
+        String Course = Item;
+        CollectionReference CourseRef = firestore.collection("Courses");
+        CourseRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    String courseID, courseName, instructor, courseDate1, courseDate2;
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        if (document.getString("CourseID").equals(Item)) {
+                            courseID = document.getString("CourseID");
+                            courseName = document.getString("CourseName");
+                            instructor = document.getString("Instructor");
+                            courseDate1 = document.getString("Day1") + ", " + document.getString("Day1Hours");
+                            courseDate2 = document.getString("Day2") + ", " + document.getString("Day2Hours");
 
+                            Boolean FitsSchedule = true;
+                            for (int i = 0; i < ScheduleList.size(); i++) {
+                                String[] temp = ScheduleList.get(i);
+                                if (temp[0].equals(document.getString("Day1")) && temp[1].equals(document.getString("Day1Hours")) ||
+                                        temp[2].equals(document.getString("Day2")) && temp[3].equals(document.getString("Day2Hours"))) {
+                                    FitsSchedule = false;
+//                                    CourseSelect.setError("Select a course with an unoccupied time slot");
+//                                    Toast.makeText(StudentEnrolActivity.this, "Selected course is time slot in occupied", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            if (String.valueOf(((ArrayList)document.get("Students")).size()).equals(document.getString("StudentCapacity"))){
+//                                CourseSelect.setError("This course is full");
+                            }
+
+                            else if (FitsSchedule && (!instructor.equals("") && courseID.equals(Item)) || (!instructor.equals("") && courseName.equals(Item))) {
+                                firestore.collection("Courses").document(
+                                        document.getId()).update("Students", FieldValue.arrayUnion(username));
+                                CollectionReference UserRef = firestore.collection("Users");
+                                UserRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                        if (task.isSuccessful()) {
+                                            for (QueryDocumentSnapshot Userdocument : task.getResult()) {
+                                                if (Userdocument.getString("Username").equals(username)) {
+                                                    Log.e("USER", Userdocument.getString("Username"));
+                                                    Map Schedule = (Map) Userdocument.get("Courses");
+                                                    String CourseID = document.getString("CourseID");
+                                                    ArrayList Days = new ArrayList<>();
+                                                    Days.add(document.getString("Day1"));
+                                                    Days.add(document.getString("Day1Hours"));
+                                                    Days.add(document.getString("Day2"));
+                                                    Days.add(document.getString("Day2Hours"));
+                                                    Schedule.put(CourseID, Days);
+                                                    firestore.collection("Users").document(Userdocument.getId()).update("Courses", Schedule);}
+                                            }
+                                        }
+                                    }
+                                });
+//                                Toast.makeText(StudentEnrolActivity.this, courseID + ", " + courseName + "Enrolled", Toast.LENGTH_SHORT).show();
+//                                Intent intent = new Intent(StudentEnrolActivity.this, StudentActivity.class);
+//                                intent.putExtra("username", username);
+//                                startActivity(intent);
+//                                finish();
+                            } else if ((instructor.equals("") && courseID.equals(Course)) || (instructor.equals("") && courseName.equals(Course))) {
+//                                CourseSelect.setError("Select a course with an instructor");
+//                                Toast.makeText(StudentEnrolActivity.this, "Selected course is closed", Toast.LENGTH_SHORT).show();
+                            }
+                        }
                     }
                 }
             }
