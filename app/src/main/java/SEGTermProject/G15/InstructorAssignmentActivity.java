@@ -75,7 +75,6 @@ public class InstructorAssignmentActivity extends AppCompatActivity {
                         }
                         results.add(courseValues);
                     }
-
                 }
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 courseList.setAdapter(adapter);

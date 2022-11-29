@@ -6,33 +6,55 @@
     android:layout_height="match_parent"
     tools:context=".Student">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+
+    <Button
+        android:id="@+id/btnCourses"
+        android:layout_width="345dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="@color/black"
+        android:paddingLeft="90dp"
+        android:paddingRight="90dp"
+        android:text="Enrolled Courses"
+        app:layout_constraintEnd_toEndOf="@+id/btnSearch"
+        app:layout_constraintStart_toStartOf="@+id/btnSearch"
+        app:layout_constraintTop_toBottomOf="@+id/btnSearch" />
+
+    <Button
+        android:id="@+id/btnSearch"
+        android:layout_width="325dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="400dp"
+        android:backgroundTint="@color/black"
+        android:paddingLeft="60dp"
+        android:paddingRight="60dp"
+        android:text="Search Courses"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnLogOut"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="22dp"
-        android:layout_marginEnd="22dp"
-        android:orientation="vertical">
+        android:layout_marginTop="670dp"
+        android:backgroundTint="@color/black"
+        android:text="Logout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Welcome Student"
-            android:layout_gravity="center"
-            android:textSize="22sp"
-            android:textColor="@color/black"
-            tools:layout_editor_absoluteX="142dp"
-            tools:layout_editor_absoluteY="161dp" />
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="244dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnAssign"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/logo" />
 
-        <Button
-            android:id="@+id/btnLogOut"
-            android:layout_width="120dp"
-            android:layout_height="50dp"
-            android:layout_gravity="right"
-            android:layout_marginTop="650dp"
-            android:backgroundTint="@color/black"
-            android:text="Log Off" />
-
-    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
