@@ -56,11 +56,43 @@ public class DBHandler {
                         User.put("Username", user.getUsername());
                         User.put("Email", user.getEmail());
                         User.put("Password", user.getPassword());
+                        if (user.getType().equals("Student")){
+                            Map<String, String[]> Courses = new HashMap<>();
+                            User.put("Courses", Courses);
+                        }
                         firestore.collection("Users").document(userID).set(User);
                     }
                 }
             });
         }
+    }
+
+    public void EnrollStudent (QueryDocumentSnapshot Coursedocument, String username){
+        CollectionReference UserRef = firestore.collection("Users");
+        UserRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()){
+                    for (QueryDocumentSnapshot Userdocument : task.getResult()){
+                        if (Userdocument.getString("Username").equals(username)) {
+                            Map Schedule = (Map) Userdocument.get("Courses");
+                            String CourseID = Coursedocument.getString("CourseID");
+                            String[] Days = new String[]{Coursedocument.getString("Day1"),Coursedocument.getString("Day1hours"),Coursedocument.getString("Day2"),Coursedocument.getString("Day2Hours")};
+                            Schedule.put(CourseID,Days);
+                            Map<String, String[]> Courses = new HashMap<>();
+                            Courses.put("Test", new String[]{"Day1", "Time1"});
+
+                            firestore.collection("Users").document(Userdocument.getId()).update("Courses",Courses);
+                        }
+
+
+
+
+
+                    }
+                }
+            }
+        });
     }
 
     public void addCourse(String CourseID, String CourseName){
