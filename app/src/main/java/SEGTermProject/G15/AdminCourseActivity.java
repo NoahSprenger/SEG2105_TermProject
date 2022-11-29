@@ -25,12 +25,20 @@ import org.checkerframework.checker.units.qual.A;
 import java.util.ArrayList;
 import java.util.Stack;
 
+/**
+ * Activity class for admin course utilities.
+ * Extends AppCompactActivity.
+ */
 public class AdminCourseActivity extends AppCompatActivity {
     private Button btnEditCourse, btnDeleteCourse, btnCreateCourse;
     private EditText inputNewCode, inputNewCourse;
     private String NewCourseName, NewCourseCode, inputCode;
     private Spinner mySpinner;
 
+    /**
+     * Method for when the activity is created.
+     * @param savedInstanceState
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         DBHandler db = new DBHandler();

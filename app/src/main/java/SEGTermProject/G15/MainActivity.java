@@ -19,12 +19,20 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.*;
 
+/**
+ * Activity class for application entry.
+ * Extends AppCompactActivity.
+ */
 public class MainActivity extends AppCompatActivity {
 
     private Button btnSignUp, btnSignIn;
     private FirebaseAuth Auth;
     private FirebaseAuth.AuthStateListener AuthLister;
 
+    /**
+     * {@inheritDoc}
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +60,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Firebase setup.
+     */
     private void FireAuthSetup(){
         Auth = FirebaseAuth.getInstance();
         AuthLister = new FirebaseAuth.AuthStateListener(){
@@ -66,11 +77,17 @@ public class MainActivity extends AppCompatActivity {
             }
         };
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onStart(){
         super.onStart();
         Auth.addAuthStateListener(AuthLister);
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onStop(){
         super.onStop();

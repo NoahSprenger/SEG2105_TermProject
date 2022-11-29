@@ -31,6 +31,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Activity class for student enrollment utilities.
+ * Extends AppCompactActivity.
+ */
 public class StudentEnrolActivity extends AppCompatActivity {
 
     ListView courseList;
@@ -43,6 +47,10 @@ public class StudentEnrolActivity extends AppCompatActivity {
     ArrayList<String[]> ScheduleList = new ArrayList<String[]>();
     DBHandler db = new DBHandler();
 
+    /**
+     * {@inheritDoc}
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

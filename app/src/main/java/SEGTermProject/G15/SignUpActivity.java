@@ -20,6 +20,10 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+/**
+ * Activity class for signup utilities.
+ * Extends AppCompactActivity.
+ */
 public class SignUpActivity extends AppCompatActivity {
 
     DBHandler db = new DBHandler();
@@ -31,6 +35,10 @@ public class SignUpActivity extends AppCompatActivity {
     String usernameInput, emailInput, passwordInput;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
+    /**
+     * {@inheritDoc}
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,6 +101,10 @@ public class SignUpActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Method for creating a user.
+     * @return true is success and false otherwise
+     */
     private Boolean createUser(){
         usernameInput = edtUsername.getText().toString();
         emailInput = edtEmail.getText().toString();

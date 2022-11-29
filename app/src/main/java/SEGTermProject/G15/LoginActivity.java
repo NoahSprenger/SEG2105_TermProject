@@ -29,6 +29,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.checkerframework.checker.units.qual.A;
 
+/**
+ * Activity class for login utilities. 
+ * Extends AppCompactActivity.
+ */
 public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth Auth = FirebaseAuth.getInstance();
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
@@ -41,6 +45,10 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DBHandler db = new DBHandler();
 
+    /**
+     * {@inheritDoc}
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

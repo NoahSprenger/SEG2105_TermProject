@@ -7,12 +7,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+/**
+ * Activity class for the admin.
+ * Extends AppCompactActivity.
+ */
 public class AdminActivity extends AppCompatActivity {
 
     private Button btnUserUtilities, btnCourseUtilities, btnLogOut;
 
-
-
+    /**
+     * {@inheritDoc}
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

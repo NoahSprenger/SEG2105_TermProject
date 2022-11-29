@@ -36,14 +36,25 @@ import org.checkerframework.checker.units.qual.A;
 
 import java.util.*;
 
+/**
+ * Class for creating a Firestore database handler.
+ */
 public class DBHandler {
 
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
     private FirebaseAuth Auth = FirebaseAuth.getInstance();
     private String userID;
 
+    /**
+     * Empty constructor to give access to the object.
+     */
     DBHandler(){}
 
+    /**
+     * Method for adding a user to the database.
+     * @param user the use to be added
+     * @throws Exception 
+     */
     public void addUser(User user) throws Exception {
         Log.d("TEST", Auth.getCurrentUser().getUid());
         if(Auth.getCurrentUser() != null){
@@ -69,6 +80,11 @@ public class DBHandler {
         }
     }
 
+    /**
+     * Method for removing a student from a course.
+     * @param username the student's username
+     * @param Item the course to remove
+     */
     public void UnenrollStudent (String username, String Item){
         CollectionReference UserRef = firestore.collection("Users");
         UserRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -109,6 +125,12 @@ public class DBHandler {
         });
     }
 
+    /**
+     * Method for adding a student to a course
+     * @param username the student's username
+     * @param Item the course
+     * @param ScheduleList a schedule of courses
+     */
     public void EnrollStudent ( String username, String Item, ArrayList<String[]> ScheduleList){
 
         String Course = Item;
@@ -181,6 +203,11 @@ public class DBHandler {
         });
     }
 
+    /**
+     * Method for adding a course to the database.
+     * @param CourseID the Id of the course
+     * @param CourseName the name of the course
+     */
     public void addCourse(String CourseID, String CourseName){
         Map<String, Object> Course = new HashMap<>();
         Course.put("CourseID", CourseID);
@@ -195,6 +222,10 @@ public class DBHandler {
         firestore.collection("Courses").add(Course);
     }
 
+    /**
+     * Method for deleting a user from the course.
+     * @param Username the username of the user
+     */
     public void deleteUser(String Username){
         CollectionReference UsersRef = firestore.collection("Users");
         Query query = UsersRef.whereEqualTo("Username", Username);
@@ -211,6 +242,10 @@ public class DBHandler {
         });
     }
 
+    /**
+     * Getter for the users in the database.
+     * @return a string stack of users 
+     */
     public Stack<String> getUsers(){
         Stack<String> users = new Stack<String>();
         CollectionReference UsersRef = firestore.collection("Users");
@@ -229,6 +264,10 @@ public class DBHandler {
         return  users;
     }
 
+    /**
+     * Getter for the courses in the database.
+     * @return a string stack of courses
+     */
     public Stack<String> getCourses(){
         Stack<String> Courses = new Stack<String>();
         CollectionReference CourseRef = firestore.collection("Courses");
@@ -247,7 +286,10 @@ public class DBHandler {
         return  Courses;
     }
 
-
+    /**
+     * Method for deleting a course from the database.
+     * @param CourseID the course Id
+     */
     public void deleteCourse(String CourseID){
         CollectionReference UsersRef = firestore.collection("Courses");
         Query query = UsersRef.whereEqualTo("CourseID", CourseID);
@@ -264,6 +306,12 @@ public class DBHandler {
         });
     }
 
+    /**
+     * Method for editing a course in the database.
+     * @param CourseID the course Id
+     * @param NewCourseID the new course Id
+     * @param NewCourseInfo the new course info
+     */
     public void editCourse(String CourseID, String NewCourseID, String NewCourseInfo) {
         CollectionReference UsersRef = firestore.collection("Courses");
 //        All fields are filled
@@ -309,7 +357,4 @@ public class DBHandler {
             });
         }
     }
-
-    
-
 }

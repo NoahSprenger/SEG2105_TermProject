@@ -24,6 +24,10 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Stack;
 
+/**
+ * Activity class for instructor course utilities.
+ * Extends AppCompactActivity.
+ */
 public class InstuctorEditCourse extends AppCompatActivity {
 
     private Button btnEdit, btnLeave, btnBack;
@@ -33,7 +37,10 @@ public class InstuctorEditCourse extends AppCompatActivity {
     private Stack courseStack, day1Stack, day2Stack, hours2Stack, hours1Stack;
     private String courseSelect, day1Select, day2Select, hours1Select, hours2Select, capacitySelect, descriptionSelect;;
 
-
+    /**
+     * {@inheritDoc}
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

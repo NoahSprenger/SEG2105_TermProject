@@ -21,10 +21,18 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Stack;
 
+/**
+ * Activity class for admin user utilities.
+ * Extends AppCompactActivity.
+ */
 public class AdminUserActivity extends AppCompatActivity {
     private Button btnDeleteStudent, btnDeleteInstructor;
     private String InstructorName, StudentName;
     private Spinner InstuctorSpinner, StudentSpinner;
+    /**
+     * Method for when the activity is created.
+     * @param savedInstanceState
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         DBHandler db = new DBHandler();

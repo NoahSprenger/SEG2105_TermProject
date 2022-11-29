@@ -33,6 +33,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Activity class for student course utilities.
+ * Extends AppCompactActivity.
+ */
 public class StudentCoursesActivity extends AppCompatActivity {
 
     ListView courseList;
@@ -42,6 +46,10 @@ public class StudentCoursesActivity extends AppCompatActivity {
     String Item;
     DBHandler db = new DBHandler();
 
+    /**
+     * {@inheritDoc}
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

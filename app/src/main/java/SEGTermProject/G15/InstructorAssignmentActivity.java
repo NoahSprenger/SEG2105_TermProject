@@ -26,6 +26,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Stack;
 
+/**
+ * Activity class for instructor assignment utilities. 
+ * Extends AppCompactActivity.
+ */
 public class InstructorAssignmentActivity extends AppCompatActivity {
 
     ListView courseList;
@@ -35,6 +39,10 @@ public class InstructorAssignmentActivity extends AppCompatActivity {
     EditText CourseSelect;
     Button btnTeach, btnSearch, btnBack;
 
+    /**
+     * {@inheritDoc}
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

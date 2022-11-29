@@ -7,9 +7,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+/**
+ * Activity class for an instructor.
+ * Extends AppCompactActivity.
+ */
 public class InstructorActivity extends AppCompatActivity {
     private Button btnLogOut, btnAssign, btnEdit;
 
+    /**
+     * {@inheritDoc}
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
